@@ -1,0 +1,24 @@
+{
+  "name": "localStorage-by-IndexedDB-shim",
+  "description": "makes available localStorage functions by using IndexedDB",
+  "version": "0.0.1",
+  "license": "Apache2",
+  "main": "index.js",
+  "author": "Michael Akiliev",
+  "scripts": {
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/houd1ni/localStorage-by-IndexedDB-shim"
+  },
+  "bugs": {
+    "url": "https://github.com/houd1ni/localStorage-by-IndexedDB-shim/issues"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.1.0"
+  }
+}
