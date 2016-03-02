@@ -24,7 +24,7 @@
     {
         localStorageShim = function()
         {
-            var idb, ostorage, tick, IDB = indexedDB.open(db_name, 4),
+            var idb, ostorage, tick, IDB = indexedDB.open(db_name, 7),
                 Storage = {},
 
                 run_get = function()
@@ -51,7 +51,7 @@
                     k = k+''
                     v = v+''
 
-                    if(Storage[k][0] === v) return;
+                    if(Storage[k] && Storage[k][0] === v) return;
 
                     Storage[k] = Storage[k] || []
                     Storage[k][0] = v
@@ -60,7 +60,9 @@
 
                     ostorage = db.transaction(table_name, 'readwrite').objectStore(table_name)
                     
-                    ostorage = ostorage.put({k: k, v: v}, Storage[k][1])
+                    var put = [{k: k, v: v}]
+                    if(Storage[k][1]) put.push(Storage[k][1])
+                    ostorage = ostorage.put.apply(window, put)
                     ostorage.onsuccess = run_tick
                 },
                 
@@ -72,26 +74,36 @@
 
 
             IDB.onupgradeneeded = function(event) {
-                var db = event.target.result;
-
-                var idb = event.target.transaction.objectStore(table_name) || db.createObjectStore(table_name, {autoIncrement: true});
+                var idb, db = event.target.result;
+                
+                
+debugger
                 try
                 {
-                        
-                idb.createIndex("k", "k", { unique: true });
-                idb.createIndex("v", "v", { unique: false });
-                } catch(e){}
-
-                idb.transaction.oncomplete = function(event)
-                {
-                    var ostorage = db.transaction(table_name, 'readwrite').objectStore(table_name);
-                    for (var i in init)
-                        ostorage.add(init[i]);
+                    idb = event.target.transaction.objectStore(table_name);
                 }
+                    catch(e)
+                {
+                    idb = db.createObjectStore(table_name, {autoIncrement: true});
+                }
+
+                try
+                {  
+                    idb.createIndex("k", "k", { unique: true });
+                    idb.createIndex("v", "v", { unique: false });
+
+                    idb.transaction.oncomplete = function(event)
+                    {
+                        var ostorage = db.transaction(table_name, 'readwrite').objectStore(table_name);
+                        for (var i in init)
+                            ostorage.add(init[i]);
+                    }
+                } catch(e){}
             }
             
             IDB.onsuccess = function(event)
             {
+                    
                 db = event.target.result;
                 ostorage = db.transaction(table_name, 'readwrite').objectStore(table_name);
                 run_tick()
