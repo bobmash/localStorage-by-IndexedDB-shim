@@ -2,7 +2,7 @@
 makes available localStorage functions by using IndexedDB
 
 _______________________________
-[logo_msedge](http://static.dnaindia.com/sites/default/files/styles/half/public/2015/12/07/402206-microsoft-edge-logo.jpg?itok=-4FTLJur)
+![logo_msedge](http://static.dnaindia.com/sites/default/files/styles/half/public/2015/12/07/402206-microsoft-edge-logo.jpg?itok=-4FTLJur)
 
 The library polls indexedDB with interval from options (start of the file, parameter `poll_time`, even minified), saves it and gives You ability to use it like normal regular `localStorage`! 200ms by default.
 
