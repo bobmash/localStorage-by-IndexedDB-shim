@@ -76,8 +76,6 @@
             IDB.onupgradeneeded = function(event) {
                 var idb, db = event.target.result;
                 
-                
-debugger
                 try
                 {
                     idb = event.target.transaction.objectStore(table_name);
