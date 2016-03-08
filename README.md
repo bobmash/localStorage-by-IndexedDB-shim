@@ -1,5 +1,5 @@
 # localStorage-by-IndexedDB-shim
-makes available localStorage functions by using IndexedDB
+The tiny polyfill makes available localStorage functions by using IndexedDB
 
 _______________________________
 ![logo_msedge](http://static.dnaindia.com/sites/default/files/styles/half/public/2015/12/07/402206-microsoft-edge-logo.jpg?itok=-4FTLJur)
